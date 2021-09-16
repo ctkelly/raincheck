@@ -1,0 +1,19 @@
+# IDE related, all standard except for "venv" which should be customized to your venv folder name
+__pycache__
+.DS_STORE
+*.pyc
+.idea/
+rainvenv/  
+.vscode/
+
+# Dotenv
+.env*
+
+# Tox/PyTest
+.pytest_cache/
+.tox/
+.coverage
+
+# static files
+staticfiles
+

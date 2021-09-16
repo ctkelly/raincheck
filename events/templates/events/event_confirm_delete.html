@@ -1,0 +1,16 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+
+<h3>Delete Event</h3>
+
+<p>Are you sure you want to delete the event: {{ event }}?</p>
+
+{#<p><a href="{% url 'events:event_list' %}">No, take me back to my events.</a></p>#}
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+</form>
+
+{% endblock %}
