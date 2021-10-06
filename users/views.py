@@ -7,7 +7,7 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('events:all')  # this currently redirects to login page; need to fix
+            return redirect('events:all')
     else:
         form = RegisterForm()
 

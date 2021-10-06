@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'events.apps.EventsConfig',
     # need to install django_extensions, crispy_forms, etc?
-    # 'django_extensions',
+    'django_extensions',
     # 'crispy_forms',
 ]
 

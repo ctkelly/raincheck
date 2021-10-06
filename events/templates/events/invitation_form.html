@@ -2,15 +2,15 @@
 
 {% block content %}
 
-<h3>Delete Event</h3>
+<h3>Raincheck Request</h3>
 
-<p>Are you sure you want to delete the event: {{ event }}?</p>
+<p>Are you sure you want to request a raincheck for {{ invitation.event.title }}? This action is irreversible.</p>
 
 <p><a href="{% url 'events:all' %}">No, take me back to my events.</a></p>
 
 <form action="" method="POST">
   {% csrf_token %}
-  <input type="submit" value="Yes, delete.">
+  <input type="submit" value="Yes, request raincheck">
 </form>
 
 {% endblock %}

@@ -1,21 +1,38 @@
 {% extends "home/base.html" %}
 {% block content %}
-{% if user.is_authenticated %}
-    <p>Hi, {{ user.username }}!</p>
-{% endif %}
 
-<h3>My Events</h3>
+<p>Hi, {{ user.username }}!</p>
+
+
+<h4>My Events</h4>
 <p>
 {% if event_list %}
 <ul>
   {% for event in event_list %}
-    <li>
-        {{ event.title }} on {{ event.date }} at {{ event.time }}  |  Status: {{ event.status.name }}
-        {% if event.owner == user %}
-        (<a href="{% url 'events:event_update' event.id %}">Edit event</a> |
-        <a href="{% url 'events:event_delete' event.id %}">Delete event</a>)
-        {% endif %}
-    </li>
+      <p> <!-- For readability -- take out later -->
+        <li>
+            <br>
+            Event id: {{ event.id }}
+            <br>
+            {{ event.title }} | Attendees: {{ event.invitee }}, {{ event.owner }}
+            <br>
+            Date: {{ event.date }} | Time: {{ event.time }} | Event Status: {{ event.display_status }}
+            <p>
+            {% for invitation in event.invitation_set.all %}
+                {% if invitation.invitee == request.user %}
+                    My Status: {{ invitation.invitation_status }}
+                        {% if invitation.response == True %}
+                          (<a href="{% url 'events:invitation_update' invitation.id %}">Request raincheck)</a>
+                        {%  endif %}
+                {% endif %}
+            {% endfor %}
+            </p>
+                {% if event.owner == user %}
+                    (<a href="{% url 'events:event_update' event.id %}">Edit event</a> |
+                     <a href="{% url 'events:event_delete' event.id %}">Delete event</a>)
+                {% endif %}
+        </li>
+      </p>
   {% endfor %}
 </ul>
 {% else %}
