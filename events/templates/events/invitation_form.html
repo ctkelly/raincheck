@@ -4,7 +4,11 @@
 
 <h3>Raincheck Request</h3>
 
-<p>Are you sure you want to request a raincheck for {{ invitation.event.title }}? This action is irreversible.</p>
+{#The variables in this template do not render correctly.    #}
+
+<p>Invitation event id : {{ invitation.event_id }}</p>
+
+<p>Are you sure you want to request a raincheck for {{ invitation.event_id.title }}? This action is irreversible.</p>
 
 <p><a href="{% url 'events:all' %}">No, take me back to my events.</a></p>
 

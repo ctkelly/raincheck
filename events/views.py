@@ -34,7 +34,7 @@ class EventCreateView(LoginRequiredMixin, CreateView):
         owner_invitation.save()
         invitee_invitation = Invitation(invitee=event.invitee, event=event, response=True)
         invitee_invitation.save()
-        return redirect(self.success_url)  # Changed to this from super()
+        return redirect(self.success_url)  
 
 
 class InvitationUpdateView(LoginRequiredMixin, View):
@@ -54,10 +54,25 @@ class InvitationUpdateView(LoginRequiredMixin, View):
         if form.is_valid():
             invitation = form.save(commit=False)
             invitation.response = False
+            invitation_event = invitation.event_id
+            print(invitation_event)
             invitation.save()
-            # Now, check all the other invitations for the event -- if false, need to change the event message
-
-            return redirect(self.success_url)
+            # Then:
+            # Get all the invitations that have the same event_id as the invitation just saved
+            # Check each response column for each invitation
+            # If True exists():
+            # Do nothing and redirect back to event list
+            # Else:
+            # Change event.status to INACTIVE
+            # Save event
+            # Redirect to event list
+            if Invitation.objects.filter(event_id=invitation_event, response=True).exists():
+                return redirect(self.success_url)
+            else:
+                event = Event.objects.get(id=invitation_event)
+                event.status = 0
+                event.save()
+                return redirect(self.success_url)
 
 
 class EventUpdateView(LoginRequiredMixin, UpdateView):

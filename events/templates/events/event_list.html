@@ -16,7 +16,11 @@
             <br>
             {{ event.title }} | Attendees: {{ event.invitee }}, {{ event.owner }}
             <br>
-            Date: {{ event.date }} | Time: {{ event.time }} | Event Status: {{ event.display_status }}
+            Date: {{ event.date }} | Time: {{ event.time }}
+            <br>
+            <p>
+            Event Status: {{ event.display_status }}
+            </p>
             <p>
             {% for invitation in event.invitation_set.all %}
                 {% if invitation.invitee == request.user %}
