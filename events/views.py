@@ -8,14 +8,18 @@ from django.db.models import Q
 
 
 from events.models import Event, Invitation
-from events.forms import InvitationForm
+from events.forms import EventForm, InvitationForm
 
 
 class MainEventView(LoginRequiredMixin, View):
     template_name = 'events/event_list.html'
 
     def get(self, request, *args, **kwargs):
-        el = Event.objects.filter(Q(owner=self.request.user) | Q(invitee=self.request.user))
+        el = Event.objects.filter(
+            Q(owner=self.request.user) |
+            Q(invitee=self.request.user)
+        )
+        # Add filters here or above to exclude past event dates
         ctx = {'event_list': el}
         return render(request, 'events/event_list.html', ctx)
 
@@ -34,7 +38,7 @@ class EventCreateView(LoginRequiredMixin, CreateView):
         owner_invitation.save()
         invitee_invitation = Invitation(invitee=event.invitee, event=event, response=True)
         invitee_invitation.save()
-        return redirect(self.success_url)  
+        return redirect(self.success_url)
 
 
 class InvitationUpdateView(LoginRequiredMixin, View):
@@ -45,7 +49,7 @@ class InvitationUpdateView(LoginRequiredMixin, View):
     def get(self, request, pk):
         invitation = get_object_or_404(self.model, pk=pk)
         form = InvitationForm(instance=invitation)
-        ctx = {'form': form}
+        ctx = {'form': form, 'invitation': invitation}
         return render(request, self.template, ctx)
 
     def post(self, request, pk):
@@ -55,17 +59,8 @@ class InvitationUpdateView(LoginRequiredMixin, View):
             invitation = form.save(commit=False)
             invitation.response = False
             invitation_event = invitation.event_id
-            print(invitation_event)
             invitation.save()
-            # Then:
-            # Get all the invitations that have the same event_id as the invitation just saved
-            # Check each response column for each invitation
-            # If True exists():
-            # Do nothing and redirect back to event list
-            # Else:
-            # Change event.status to INACTIVE
-            # Save event
-            # Redirect to event list
+
             if Invitation.objects.filter(event_id=invitation_event, response=True).exists():
                 return redirect(self.success_url)
             else:
@@ -75,24 +70,43 @@ class InvitationUpdateView(LoginRequiredMixin, View):
                 return redirect(self.success_url)
 
 
-class EventUpdateView(LoginRequiredMixin, UpdateView):
+class EventUpdateView(LoginRequiredMixin, View):
     model = Event
-    fields = ['title', 'invitee', 'date', 'time']
+    template = 'events/event_form.html'
     success_url = reverse_lazy('events:all')
 
-    def get_queryset(self):
-        qs = super(EventUpdateView, self).get_queryset()
-        return qs.filter(owner=self.request.user)
+    def get(self, request, pk):
+        event = get_object_or_404(self.model, pk=pk)
+        form = EventForm(instance=event)
+        ctx = {'form': form}
+        return render(request, self.template, ctx)
+
+    def post(self, request, pk):
+        event = get_object_or_404(self.model, pk=pk)
+        form = EventForm(request.POST, instance=event)
+        if not form.is_valid():
+            ctx = {'form': form}
+            return render(request, self.template, ctx)
+
+        form.save()
+        return redirect(self.success_url)
 
 
-class EventDeleteView(LoginRequiredMixin, DeleteView):
+class EventDeleteView(LoginRequiredMixin, View):
     model = Event
-    fields = ['title', 'invitee', 'date', 'time']
+    template = 'events/event_confirm_delete.html'
     success_url = reverse_lazy('events:all')
 
-    def get_queryset(self):
-        qs = super(EventDeleteView, self).get_queryset()
-        return qs.filter(owner=self.request.user)
+    def get(self, request, pk):
+        event = get_object_or_404(self.model, pk=pk)
+        ctx = {'event': event}
+        return render(request, self.template, ctx)
+
+    def post(self, request, pk):
+        event = get_object_or_404(self.model, pk=pk)
+        event.delete()
+        return redirect(self.success_url)
+
 
 
 
