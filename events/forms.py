@@ -15,4 +15,9 @@ class EventForm(ModelForm):
         fields = ['title', 'date', 'time']
 
 
+class EventCreateForm(ModelForm):
+    class Meta:
+        model = Event
+        fields = ['title', 'invitee', 'date', 'time']
+
 

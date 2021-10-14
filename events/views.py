@@ -8,7 +8,7 @@ from django.db.models import Q
 from datetime import date
 
 from events.models import Event, Invitation
-from events.forms import EventForm, InvitationForm
+from events.forms import EventForm, EventCreateForm, InvitationForm
 
 
 class MainEventView(LoginRequiredMixin, View):
@@ -21,16 +21,27 @@ class MainEventView(LoginRequiredMixin, View):
             Q(owner=self.request.user) |
             Q(invitee=self.request.user),
             date__gte=today).order_by('date')  # Where do I break this line?
+
         ctx = {'event_list': el}
         return render(request, 'events/event_list.html', ctx)
 
 
-class EventCreateView(LoginRequiredMixin, CreateView):
+class EventCreateView(LoginRequiredMixin, View):
     model = Event
-    fields = ['title', 'invitee', 'date', 'time']
+    template = 'events/event_form.html'
     success_url = reverse_lazy('events:all')
 
-    def form_valid(self, form):
+    def get(self, request):
+        form = EventCreateForm()
+        ctx = {'form': form}
+        return render(request, self.template, ctx)
+
+    def post(self, request):
+        form = EventCreateForm(request.POST)
+        if not form.is_valid():
+            ctx = {'form': form}
+            return render(request, self.template, ctx)
+
         event = form.save(commit=False)
         event.owner = self.request.user
         event.save()
