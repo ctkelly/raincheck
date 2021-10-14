@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.db.models import Q
-
+from datetime import date
 
 from events.models import Event, Invitation
 from events.forms import EventForm, InvitationForm
@@ -15,11 +15,12 @@ class MainEventView(LoginRequiredMixin, View):
     template_name = 'events/event_list.html'
 
     def get(self, request, *args, **kwargs):
+        today = date.today()
+        print(today)
         el = Event.objects.filter(
             Q(owner=self.request.user) |
-            Q(invitee=self.request.user)
-        )
-        # Add filters here or above to exclude past event dates
+            Q(invitee=self.request.user),
+            date__gte=today).order_by('date')  # Where do I break this line?
         ctx = {'event_list': el}
         return render(request, 'events/event_list.html', ctx)
 
