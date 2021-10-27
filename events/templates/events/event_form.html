@@ -1,13 +1,18 @@
 {% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <h3 class="text-center mt-5">Create event</h3>
+{% endblock %}
 
 {% block content %}
-  <form action="" method="post">
-    {% csrf_token %}
-      <p>
-          {{ form.as_p }}
-      </p>
-    <input type="submit" value="Submit">
-    <input type="submit" onclick="window.location='{% url 'events:all' %}' ; return false;" value="Cancel">
-  </form>
+    <div class="container-sm">
+      <form action="" method="post">
+        {% csrf_token %}
+          {{ form|crispy }}
+        <input type="submit" class="btn btn-outline-success mt-3" value="Submit">
+        <input type="submit" class="btn btn-outline-dark mt-3" onclick="window.location='{% url 'events:all' %}' ; return false;" value="Cancel">
+      </form>
+    </div>
 {% endblock %}
 

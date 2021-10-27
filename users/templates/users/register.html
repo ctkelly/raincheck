@@ -1,15 +1,23 @@
 {% extends 'home/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-    <p>Create an account</p>
+    <h3 class="text-center mt-5">Create account</h3>
 {% endblock %}
 
 {% block content %}
-    <form method="POST">
-	{% csrf_token %}
-    {{ form }}
-	<button type="submit">Register</button>
-    </form>
+    <div class="container-sm">
+        <form method="POST">
+            {% csrf_token %}
+                {{ form|crispy }}
+            <button type="submit" class="btn btn-outline-success">Create account</button>
+        </form>
+    </div>
+
+    <div class="container-sm mt-4">
+        <a href="{% url 'home:home' %}" class="text-decoration-none">
+            <i class="bi bi-arrow-return-left"></i> Back to home</a>
+    </div>
 {% endblock %}
 
 

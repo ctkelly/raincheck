@@ -1,15 +1,23 @@
 {% extends "home/base.html" %}
 
 {% block content %}
-    <p>
-    Guilt-free plan postponement for introverts.
-    </p>
-    {% if user.is_authenticated %}
-    <p>You're logged in.</p>
-    <p>You can <a href="{% url 'logout' %}">Logout</a></p>
-    {% else %}
-    <p>You are not logged in.</p>
-    <p><a href="{% url 'login' %}?next={% url 'events:all' %}">Login</a> to see your events.</p>
-    <p>New user? You can <a href="{% url 'users:register' %}">create an account here.</a></p>
-    {% endif %}
+    <div class="w-50 mt-5 mx-auto">
+
+        <p><i class="bi bi-journal-bookmark-fill"></i> Guilt-free plan postponement for introverts <i class="bi bi-heart"></i></p>
+
+        {% if user.is_authenticated %}
+            <p>You're logged in.</p>
+            <p>You can <a href="{% url 'logout' %}">Logout</a></p>
+        {% else %}
+            <p>You are not logged in.</p>
+            <p>
+                <a href="{% url 'login' %}?next={% url 'events:all' %}"
+                   class="text-decoration-none">
+                    Login</a> to see your events.
+            </p>
+            <p>
+                New user? <a href="{% url 'users:register' %}" class="text-decoration-none">Create an account here.</a>
+            </p>
+        {% endif %}
+</div>
 {% endblock %}

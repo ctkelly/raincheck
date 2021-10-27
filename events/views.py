@@ -8,7 +8,7 @@ from django.db.models import Q
 from datetime import date
 
 from events.models import Event, Invitation
-from events.forms import EventForm, EventCreateForm, InvitationForm
+from events.forms import EventUpdateForm, EventCreateForm, InvitationForm
 
 
 class MainEventView(LoginRequiredMixin, View):
@@ -16,11 +16,11 @@ class MainEventView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         today = date.today()
-        print(today)
         el = Event.objects.filter(
             Q(owner=self.request.user) |
             Q(invitee=self.request.user),
-            date__gte=today).order_by('date')  # Where do I break this line?
+            date__gte=today
+        ).order_by('date')
 
         ctx = {'event_list': el}
         return render(request, 'events/event_list.html', ctx)
@@ -77,7 +77,7 @@ class InvitationUpdateView(LoginRequiredMixin, View):
                 return redirect(self.success_url)
             else:
                 event = Event.objects.get(id=invitation_event)
-                event.status = 0
+                event.status = Event.INACTIVE
                 event.save()
                 return redirect(self.success_url)
 
@@ -89,13 +89,13 @@ class EventUpdateView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         event = get_object_or_404(self.model, pk=pk)
-        form = EventForm(instance=event)
+        form = EventUpdateForm(instance=event)
         ctx = {'form': form}
         return render(request, self.template, ctx)
 
     def post(self, request, pk):
         event = get_object_or_404(self.model, pk=pk)
-        form = EventForm(request.POST, instance=event)
+        form = EventUpdateForm(request.POST, instance=event)
         if not form.is_valid():
             ctx = {'form': form}
             return render(request, self.template, ctx)

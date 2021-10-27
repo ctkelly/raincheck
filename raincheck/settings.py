@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'users.apps.UsersConfig',
     'events.apps.EventsConfig',
-    # need to install django_extensions, crispy_forms, etc?
     'django_extensions',
-    # 'crispy_forms',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +58,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CRISPY_TEMPLATE_PACK - 'bootstrap3' Add this later?
 
 ROOT_URLCONF = 'raincheck.urls'
 

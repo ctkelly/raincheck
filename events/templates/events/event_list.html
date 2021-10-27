@@ -1,39 +1,39 @@
 {% extends "home/base.html" %}
 {% block content %}
 
-<p>Hi, {{ user.username }}!</p>
+<p class="mt-3 ms-4">Hi, {{ user.username }}!</p>
 
+<h4 class="text-center">My events</h4>
 
-<h4>My Events</h4>
-<p>
 {% if event_list %}
-<ul>
+<ul class="list-group container-sm">
   {% for event in event_list %}
       <p> <!-- For readability -- take out later -->
-        <li>
-            <br>
-            Event id: {{ event.id }}
-            <br>
-            {{ event.title }} | Attendees: {{ event.invitee }}, {{ event.owner }}
-            <br>
-            Date: {{ event.date }} | Time: {{ event.time }}
-            <br>
-            <p>
-            Event Status: {{ event.display_status }}
-            </p>
+        <li class="list-group-item">
+            <p>Event id: {{ event.id }}</p>
+            <p><i class="bi bi-stars"></i> {{ event.title }}</p>
+            <p><i class="bi bi-people-fill"></i> {{ event.invitee }}, {{ event.owner }}</p>
+            <p><i class="bi bi-calendar-event"></i> {{ event.date }}</p>
+            <p><i class="bi bi-clock"></i> {{ event.time }}</p>
+            <p>Event status: {{ event.display_status }}</p>
             <p>
             {% for invitation in event.invitation_set.all %}
                 {% if invitation.invitee == request.user %}
-                    My Status: {{ invitation.invitation_status }}
+                    My status: {{ invitation.invitation_status }}
                         {% if invitation.response == True %}
-                          (<a href="{% url 'events:invitation_update' invitation.id %}">Request raincheck)</a>
+                          <a href="{% url 'events:invitation_update' invitation.id %}"
+                             class="btn btn-outline-info btn-sm">
+                              <i class="bi bi-cloud-drizzle"></i> Request raincheck</a>
                         {%  endif %}
                 {% endif %}
             {% endfor %}
             </p>
                 {% if event.owner == user %}
-                    (<a href="{% url 'events:event_update' event.id %}">Edit event</a> |
-                     <a href="{% url 'events:event_delete' event.id %}">Delete event</a>)
+                    <a href="{% url 'events:event_update' event.id %}"
+                       class="btn btn-outline-success btn-sm">
+                        <i class="bi bi-pencil"></i> Edit event</a>
+                     <a href="{% url 'events:event_delete' event.id %}"
+                        class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Delete event</a>
                 {% endif %}
         </li>
       </p>
@@ -42,13 +42,15 @@
 {% else %}
   <p>You currently have no events.</p>
 {% endif %}
-</p>
-<p>
-<a href="{% url 'events:event_create' %}">Add an event</a>
-{% if user.is_authenticated %}
-    <p><a href="{% url 'logout' %}?next={% url 'home:home' %}">Logout</a></p>
-{% else %}
-    <p><a href="{% url 'login' %}?next={% url 'home:home' %}">Login</a></p>
-{% endif %}
-</p>
+
+<div class="container-sm">
+    <p>
+        <a href="{% url 'events:event_create' %}" class="btn btn-outline-primary">Add an event</a>
+        {% if user.is_authenticated %}
+            <p><a href="{% url 'logout' %}?next={% url 'home:home' %}" class="text-decoration-none">Logout</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}?next={% url 'home:home' %}" class="text-decoration-none">Login</a></p>
+        {% endif %}
+    </p>
+</div>
 {% endblock %}
