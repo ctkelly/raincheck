@@ -1,0 +1,7 @@
+Hi, {{ name }}!
+
+You requested a raincheck for the following event: {{ event_name }} on {{ event_date }}
+
+If your friend also requests a raincheck, you'll be notified that the event has been postponed -- and you'll both enjoy some downtime. :)
+
+Otherwise, the event's still on!

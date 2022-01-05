@@ -1,0 +1,13 @@
+Hi, {{ name }}!
+
+You have a new event!
+
+Event: {{ event_name }}
+With: {{ friend }}
+Date: {{ event_date }}
+Time: {{ event_time }}
+
+Have fun!
+But remember, you can always request a raincheck if you need some recharging time.
+Your friend might feel the same way.  :)
+

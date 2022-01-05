@@ -1,0 +1,4 @@
+Welcome to raincheck, {{ name }}!
+
+You've successfully created your raincheck account.  :)
+

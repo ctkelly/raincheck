@@ -1,0 +1,10 @@
+Hi, {{ name }}!
+
+The following event has been rainchecked:
+
+Event: {{ event_name }}
+With: {{ friend }}
+Date: {{ event_date }}
+Time: {{ event_time }}
+
+Enjoy your recharging time!
