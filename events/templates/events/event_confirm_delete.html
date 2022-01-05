@@ -2,15 +2,18 @@
 
 {% block content %}
 
-<h3>Delete Event</h3>
+<h3 class="text-center mt-5">Delete event</h3>
 
-<p>Are you sure you want to delete the event: {{ event }}?</p>
+<p class="text-center mt-5">Are you sure you want to delete the event: {{ event }}?</p>
 
-<p><a href="{% url 'events:all' %}">No, take me back to my events.</a></p>
+<p class="text-center mt 5"><a href="{% url 'events:all' %}" class="text-decoration-none">No, take me back to my events!</a></p>
 
 <form action="" method="POST">
   {% csrf_token %}
-  <input type="submit" value="Yes, delete">
+    <div class="text-center">
+{#        Get the trash icon in the button#}
+        <input type="submit" value="Yes, delete" class="btn btn-outline-danger btn-sm">
+    </div>
 </form>
 
 {% endblock %}
