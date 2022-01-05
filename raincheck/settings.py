@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'django_extensions',
     'crispy_forms',
+    'rest_framework',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -133,13 +134,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Need this?  Not now.  This is for authenticating your API views.
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.BasicAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
-#     )
-# }
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static',)
+]
+
+# This is for authenticating your API views.
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
@@ -152,10 +156,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-RECIPIENT_ADDRESS = os.environ.get('RECIPIENT_ADDRESS')
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+RECIPIENT_ADDRESS = os.environ['RECIPIENT_ADDRESS']
 
 
 
