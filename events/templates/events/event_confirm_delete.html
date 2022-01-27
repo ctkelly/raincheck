@@ -4,16 +4,20 @@
 
 <h3 class="text-center mt-5">Delete event</h3>
 
-<p class="text-center mt-5">Are you sure you want to delete the event: {{ event }}?</p>
+<p class="text-center mt-4">Are you sure you want to delete the event: {{ event }} ?</p>
 
-<p class="text-center mt 5"><a href="{% url 'events:all' %}" class="text-decoration-none">No, take me back to my events!</a></p>
+{#<p class="text-center mt 5"><a href="{% url 'events:all' %}" class="text-decoration-none">No, take me back to my events!</a></p>#}
+{#<div class="text-center mt-4 mb-2">#}
 
-<form action="" method="POST">
-  {% csrf_token %}
-    <div class="text-center">
-{#        Get the trash icon in the button#}
-        <input type="submit" value="Yes, delete" class="btn btn-outline-danger btn-sm">
-    </div>
-</form>
+{#    Make these buttons centered and on the same line -- why is text-center not working #}
+<div class="text-center">
+    <a href="{% url 'events:all' %}" class="btn btn-outline-dark btn-sm mb-2"><i class="bi bi-arrow-return-left"></i> No, go back to events</a>
+
+    <form action="" method="POST">
+    {% csrf_token %}
+        <button type="submit" class="btn btn-outline-dark btn-sm"><i class="bi bi-trash"></i> Yes, delete</button>
+    </form>
+</div>
+
 
 {% endblock %}

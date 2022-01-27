@@ -6,23 +6,21 @@
 <h4 class="text-center">My events</h4>
 
 {% if event_list %}
-<ul class="list-group container-sm">
-  {% for event in event_list %}
-      <p> <!-- For readability -- take out later -->
-        <li class="list-group-item">
+    {% for event in event_list %}
+        <div class="border border-dark container mb-5 p-4 events" data-event-id="{{ event.id }}" data-event-status="{{ event.status }}">
             <p>Event id: {{ event.id }}</p>
             <p><i class="bi bi-stars"></i> {{ event.title }}</p>
             <p><i class="bi bi-people-fill"></i> {{ event.invitee }}, {{ event.owner }}</p>
             <p><i class="bi bi-calendar-event"></i> {{ event.date }}</p>
             <p><i class="bi bi-clock"></i> {{ event.time }}</p>
-            <p>Event status: {{ event.display_status }}</p>
+            <p class="event-status-message">Event status: {{ event.display_status }}</p>
             <p>
             {% for invitation in event.invitation_set.all %}
                 {% if invitation.invitee == request.user %}
-                    {{ invitation.invitation_status }}
+                    <span class="invitation-status">{{ invitation.invitation_status }}</span>
                         {% if invitation.response == True %}
                           <a href="{% url 'events:invitation_update' invitation.id %}"
-                             class="btn btn-outline-secondary btn-sm ms-2">
+                             class="btn btn-outline-dark btn-sm ms-2">
                               <i class="bi bi-cloud-drizzle"></i> Request raincheck</a>
                         {%  endif %}
                 {% endif %}
@@ -31,16 +29,16 @@
             <div class="text-center mt-4 mb-2">
                 {% if event.owner == user %}
                     <a href="{% url 'events:event_update' event.id %}"
-                       class="btn btn-outline-success btn-sm me-2">
+                       class="btn btn-outline-dark btn-sm me-2">
                         <i class="bi bi-pencil"></i> Edit event</a>
                      <a href="{% url 'events:event_delete' event.id %}"
-                        class="btn btn-outline-danger btn-sm ms-2"><i class="bi bi-trash"></i> Delete event</a>
+                        class="btn btn-outline-dark btn-sm ms-2"><i class="bi bi-trash"></i> Delete event</a>
                 {% endif %}
             </div>
-        </li>
-      </p>
+        </div>
+
   {% endfor %}
-</ul>
+
 {% else %}
     <p class="text-center mt-3">You currently have no events.</p>
 {% endif %}

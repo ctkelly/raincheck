@@ -6,14 +6,14 @@
 
 <p class="text-center">Invitation event id : {{ invitation.event_id }}</p>
 
-<p class="text-center">Are you sure you want to request a raincheck for: {{ invitation.event.title }}? This action is irreversible.</p>
+<p class="text-center">Are you sure you want to request a raincheck for: {{ invitation.event.title }} ? This action is irreversible.</p>
 
-<p class="text-center"><a href="{% url 'events:all' %}" class="text-decoration-none">No, take me back to my events!</a></p>
+<p class="text-center"><a href="{% url 'events:all' %}" class="btn btn-outline-dark btn-sm">No, take me back to my events!</a></p>
 
 <form action="" method="POST">
   {% csrf_token %}
     <div class="text-center mt-4">
-        <input type="submit" value="Yes, request raincheck" class="btn btn-outline-info">
+        <input type="submit" value="Yes, request raincheck" class="btn btn-outline-dark btn-sm">
     </div>
 </form>
 

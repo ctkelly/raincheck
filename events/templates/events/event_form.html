@@ -10,7 +10,7 @@
       <form action="" method="post">
         {% csrf_token %}
           {{ form|crispy }}
-        <input type="submit" class="btn btn-outline-success mt-3" value="Submit">
+        <input type="submit" class="btn btn-outline-dark mt-3" value="Submit">
         <input type="submit" class="btn btn-outline-dark mt-3" onclick="window.location='{% url 'events:all' %}' ; return false;" value="Cancel">
       </form>
     </div>
