@@ -13,7 +13,7 @@
 
     <body>
 {#        <div class="container">#}
-            <nav class="navbar navbar-light bg-light navbar-expand-md">
+            <nav class="navbar navbar-light border-top-0 border-start-0 border-end-0 border bottom border-dark border-1 navbar-expand-md">
                 <div class="container-fluid">
                     <a class="navbar-brand ms-3 fw-bold" href="{% url 'home:home' %}">
                         <img src="https://img.icons8.com/cotton/64/000000/cat-pot.png" width="40" height="40" class="me-1"/>
@@ -29,16 +29,16 @@
                          id="main-nav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link me-2" href="{% url 'events:all' %}">My events</a>
+                                <a class="nav-link me-2 fw-light fs-6" href="{% url 'events:all' %}">MY EVENTS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link ms-2 me-5" href="{% url 'events:event_create' %}">Add an event</a>
+                                <a class="nav-link ms-2 me-5 fw-light fs-6" href="{% url 'events:event_create' %}">ADD AN EVENT</a>
                             </li>
                             {% if user.is_authenticated %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'logout' %}?next={% url 'home:home' %}">Logout</a>
+                                    <a class="nav-link fw-light fs-6" href="{% url 'logout' %}?next={% url 'home:home' %}">LOGOUT</a>
                             {% else %}
-                                    <a class="nav-link" href="{% url 'login' %}?next={% url 'events:all' %}">Login</a>
+                                    <a class="nav-link fw-light fs-6" href="{% url 'login' %}?next={% url 'events:all' %}">LOGIN</a>
                             {% endif %}
                                 </li>
                         </ul>
@@ -50,15 +50,15 @@
         {% block title %}{% endblock %}
         {% block content %}{% endblock %}
 
-{#    <div class="mx-auto" style="width: 200px;">#}
-        <p class="text-center mt-5">
-            cat pot icon by
-            <a href="https://icons8.com/icon/121169/cat-pot" class="text-decoration-none">
-                Icons8
-            </a>
-        </p>
-{#    </div>#}
 
+    <p class="text-center mt-5 fw-lighter fs-6">
+        cat pot icon by
+        <a href="https://icons8.com/icon/121169/cat-pot" class="text-decoration-none">
+            Icons8
+        </a>
+    </p>
+
+        <script src="{% static 'javascript/events.js' %}"></script>
     </body>
 </html>
 
