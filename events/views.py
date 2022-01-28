@@ -55,35 +55,28 @@ class EventCreateView(LoginRequiredMixin, View):
         event_name = event.title
         event_date = event.date
         event_time = event.time
-        context1 = {
-            'name': friend1,
-            'event_name': event_name,
-            'friend': friend2,
-            'event_date': event_date,
-            'event_time': event_time,
-        }
-        context2 = {
-            'name': friend2,
-            'event_name': event_name,
-            'friend': friend1,
-            'event_date': event_date,
-            'event_time': event_time,
-        }
-        subject = render_to_string(
-            template_name='users/event_created_email_subject.txt'
-        ).strip()
-        owner_message = render_to_string(
-            template_name='users/event_created_email_message.txt',
-            context=context1,
+
+        # Trying a wrapper function for event created send_mass_mail
+        wrapper_send_mass_mail(
+            'users/event_created_email_subject.txt',
+            'users/event_created_email_message.txt',
+            {
+                'name': friend1,
+                'event_name': event_name,
+                'friend': friend2,
+                'event_date': event_date,
+                'event_time': event_time
+            },
+            {
+                'name': friend2,
+                'event_name': event_name,
+                'friend': friend1,
+                'event_date': event_date,
+                'event_time': event_time,
+            },
+            event.owner,
+            event.invitee,
         )
-        invitee_message = render_to_string(
-            template_name='users/event_created_email_message.txt',
-            context=context2,
-        )
-        from_email = settings.EMAIL_HOST_USER
-        friend1_message = (subject, owner_message, from_email, [friend1.email])
-        friend2_message = (subject, invitee_message, from_email, [friend2.email])
-        send_mass_mail((friend1_message, friend2_message), fail_silently=False)
 
         # Then create "invitations" for each invitee, below: THIS PART WAS MOVED TO MODEL
         # owner_invitation = Invitation(invitee=event.owner, event=event, response=True)
@@ -117,21 +110,14 @@ class InvitationUpdateView(LoginRequiredMixin, View):
             event = Event.objects.get(id=invitation_event)
             event_name = event.title
             event_date = event.date
-            ctx = {
-                'name': name,
-                'event_name': event_name,
-                'event_date': event_date,
-            }
-            subject = render_to_string(
-                template_name='users/invitation_update_email_subject.txt'
-            ).strip()
-            message = render_to_string(
-                template_name='users/invitation_update_email_message.txt',
-                context=ctx,
+
+            # Trying a wrapper function for send_mail
+            wrapper_send_one_invitation_update_mail(
+                'users/invitation_update_email_subject.txt',
+                'users/invitation_update_email_message.txt',
+                [name.email],
+                {'name': name, 'event_name': event_name, 'event_date': event_date}
             )
-            from_email = settings.EMAIL_HOST_USER
-            recipient_list = [name.email]
-            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
 
             if Invitation.objects.filter(event_id=invitation_event, response=True).exists():
                 return redirect(self.success_url)
@@ -144,35 +130,28 @@ class InvitationUpdateView(LoginRequiredMixin, View):
                 event_name = event.title
                 event_date = event.date
                 event_time = event.time
-                context1 = {
-                    'name': friend1,
-                    'event_name': event_name,
-                    'friend': friend2,
-                    'event_date': event_date,
-                    'event_time': event_time,
-                }
-                context2 = {
-                    'name': friend2,
-                    'event_name': event_name,
-                    'friend': friend1,
-                    'event_date': event_date,
-                    'event_time': event_time,
-                }
-                subject = render_to_string(
-                    template_name='users/event_rainchecked_email_subject.txt'
-                ).strip()
-                owner_message = render_to_string(
-                    template_name='users/event_rainchecked_email_message.txt',
-                    context=context1,
+
+                # Trying a wrapper function for event rainchecked send_mass_mail
+                wrapper_send_mass_mail(
+                    'users/event_rainchecked_email_subject.txt',
+                    'users/event_rainchecked_email_message.txt',
+                    {
+                        'name': friend1,
+                        'event_name': event_name,
+                        'friend': friend2,
+                        'event_date': event_date,
+                        'event_time': event_time
+                    },
+                    {
+                        'name': friend2,
+                        'event_name': event_name,
+                        'friend': friend1,
+                        'event_date': event_date,
+                        'event_time': event_time,
+                    },
+                    event.owner,
+                    event.invitee,
                 )
-                invitee_message = render_to_string(
-                    template_name='users/event_rainchecked_email_message.txt',
-                    context=context2,
-                )
-                from_email = settings.EMAIL_HOST_USER
-                friend1_message = (subject, owner_message, from_email, [friend1.email])
-                friend2_message = (subject, invitee_message, from_email, [friend2.email])
-                send_mass_mail((friend1_message, friend2_message), fail_silently=False)
 
                 return redirect(self.success_url)
 
