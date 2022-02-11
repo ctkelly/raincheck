@@ -7,16 +7,16 @@
 
         {% if user.is_authenticated %}
             <p>You're logged in.</p>
-            <p>You can <a href="{% url 'logout' %}">Logout</a></p>
+            <p>You can <a href="{% url 'logout' %}" class="text-dark">Logout</a></p>
         {% else %}
             <p>You are not logged in.</p>
             <p>
                 <a href="{% url 'login' %}?next={% url 'events:all' %}"
-                   class="text-decoration-none">
+                   class="text-dark">
                     Login</a> to see your events.
             </p>
             <p>
-                New user? <a href="{% url 'users:register' %}" class="text-decoration-none">Create an account here.</a>
+                New user? <a href="{% url 'users:register' %}" class="text-dark">Create an account here.</a>
             </p>
         {% endif %}
 </div>

@@ -5,17 +5,19 @@
         <title>raincheck</title>
         <link rel="icon" href="{% static 'img/favicon.ico' %}">
         <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+{#        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">#}
+        <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200&family=IBM+Plex+Serif:wght@500&family=Poppins:wght@100&display=swap" rel="stylesheet">
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
     </head>
 
     <body>
 {#        <div class="container">#}
-            <nav class="navbar navbar-light border-top-0 border-start-0 border-end-0 border bottom border-dark border-1 navbar-expand-md">
+            <nav class="navbar navbar-light bg-primary navbar-expand-md">
                 <div class="container-fluid">
-                    <a class="navbar-brand ms-3 fw-bold" href="{% url 'home:home' %}">
+                    <a class="navbar-brand ms-3 fw-bold serif" href="{% url 'home:home' %}">
                         <img src="https://img.icons8.com/cotton/64/000000/cat-pot.png" width="40" height="40" class="me-1"/>
 {#                        <img src="https://img.icons8.com/windows/32/000000/cat-butt.png"/>#}
                         raincheck
@@ -25,20 +27,20 @@
                             aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-end align-center"
+                    <div class="collapse navbar-collapse justify-content-end"
                          id="main-nav">
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav navbar-light montserrat">
                             <li class="nav-item">
-                                <a class="nav-link me-2 fw-light fs-6" href="{% url 'events:all' %}">MY EVENTS</a>
+                                <a class="nav-link me-4 fs-6" href="{% url 'events:all' %}">MY EVENTS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link ms-2 me-5 fw-light fs-6" href="{% url 'events:event_create' %}">ADD AN EVENT</a>
+                                <a class="nav-link me-5 fs-6" href="{% url 'events:event_create' %}">ADD AN EVENT</a>
                             </li>
                             {% if user.is_authenticated %}
                                 <li class="nav-item">
-                                    <a class="nav-link fw-light fs-6" href="{% url 'logout' %}?next={% url 'home:home' %}">LOGOUT</a>
+                                    <a class="nav-link fs-6" href="{% url 'logout' %}?next={% url 'home:home' %}">LOGOUT</a>
                             {% else %}
-                                    <a class="nav-link fw-light fs-6" href="{% url 'login' %}?next={% url 'events:all' %}">LOGIN</a>
+                                    <a class="nav-link fs-6" href="{% url 'login' %}?next={% url 'events:all' %}">LOGIN</a>
                             {% endif %}
                                 </li>
                         </ul>
@@ -53,12 +55,10 @@
 
     <p class="text-center mt-5 fw-lighter fs-6">
         cat pot icon by
-        <a href="https://icons8.com/icon/121169/cat-pot" class="text-decoration-none">
+        <a href="https://icons8.com/icon/121169/cat-pot" class="text-decoration-none text-dark">
             Icons8
         </a>
     </p>
-
-        <script src="{% static 'javascript/events.js' %}"></script>
     </body>
 </html>
 

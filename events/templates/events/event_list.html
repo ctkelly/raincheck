@@ -1,13 +1,14 @@
 {% extends "home/base.html" %}
+{% load static %}
+
 {% block content %}
 
-<p class="mt-3 ms-5">Hi, {{ user.username }}!</p>
+    <h4 class="text-center serif mt-5 mb-3">Hi, {{ user.username }}! Here are your events:</h4>
 
-<h4 class="text-center">My events</h4>
 
 {% if event_list %}
     {% for event in event_list %}
-        <div class="border border-dark container mb-5 p-4 events" data-event-id="{{ event.id }}" data-event-status="{{ event.status }}">
+        <div class="<border bg-primary montserrat fw-light container mb-5 p-4 events" data-event-id="{{ event.id }}" data-event-status="{{ event.status }}">
             <p>Event id: {{ event.id }}</p>
             <p><i class="bi bi-stars"></i> {{ event.title }}</p>
             <p><i class="bi bi-people-fill"></i> {{ event.invitee }}, {{ event.owner }}</p>
@@ -20,7 +21,7 @@
                     <span class="invitation-status">{{ invitation.invitation_status }}</span>
                         {% if invitation.response == True %}
                           <a href="{% url 'events:invitation_update' invitation.id %}"
-                             class="btn btn-outline-dark btn-sm ms-2">
+                             class="btn btn-light btn-outline-dark btn-sm ms-2">
                               <i class="bi bi-cloud-drizzle"></i> Request raincheck</a>
                         {%  endif %}
                 {% endif %}
@@ -29,10 +30,10 @@
             <div class="text-center mt-4 mb-2">
                 {% if event.owner == user %}
                     <a href="{% url 'events:event_update' event.id %}"
-                       class="btn btn-outline-dark btn-sm me-2">
+                       class="btn btn-light btn-outline-dark btn-sm me-2">
                         <i class="bi bi-pencil"></i> Edit event</a>
                      <a href="{% url 'events:event_delete' event.id %}"
-                        class="btn btn-outline-dark btn-sm ms-2"><i class="bi bi-trash"></i> Delete event</a>
+                        class="btn btn-light btn-outline-dark btn-sm ms-2"><i class="bi bi-trash"></i> Delete event</a>
                 {% endif %}
             </div>
         </div>
@@ -43,15 +44,6 @@
     <p class="text-center mt-3">You currently have no events.</p>
 {% endif %}
 
-{#Added the below to navbar#}
-{#<div class="container-sm">#}
-{#    <p>#}
-{#        <a href="{% url 'events:event_create' %}" class="btn btn-outline-primary">Add an event</a>#}
-{#        {% if user.is_authenticated %}#}
-{#            <p><a href="{% url 'logout' %}?next={% url 'home:home' %}" class="text-decoration-none">Logout</a></p>#}
-{#        {% else %}#}
-{#            <p><a href="{% url 'login' %}?next={% url 'home:home' %}" class="text-decoration-none">Login</a></p>#}
-{#        {% endif %}#}
-{#    </p>#}
-{#</div>#}
+    <script src="{% static 'javascript/events.js' %}"></script>
+
 {% endblock %}

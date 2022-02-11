@@ -2,19 +2,42 @@
 
 {% block content %}
 
-<h3 class="text-center mt-5">Raincheck request</h3>
+    <h3 class="text-center serif mt-5">Raincheck request</h3>
 
-<p class="text-center">Invitation event id : {{ invitation.event_id }}</p>
+    <p class="text-center montserrat">Invitation event id : {{ invitation.event_id }}</p>
 
-<p class="text-center">Are you sure you want to request a raincheck for: {{ invitation.event.title }} ? This action is irreversible.</p>
+    <p class="text-center montserrat">Are you sure you want to request a raincheck for: {{ invitation.event.title }}? This action is irreversible.</p>
 
-<p class="text-center"><a href="{% url 'events:all' %}" class="btn btn-outline-dark btn-sm">No, take me back to my events!</a></p>
-
-<form action="" method="POST">
-  {% csrf_token %}
-    <div class="text-center mt-4">
-        <input type="submit" value="Yes, request raincheck" class="btn btn-outline-dark btn-sm">
+    <div class="container mt-5 text-center montserrat">
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <div class="justify-content-center">
+                   <form action="" method="POST">
+                       {% csrf_token %}
+                       <button type="submit" class="btn btn-outline-dark btn-sm">
+                           <i class="bi bi-cloud-drizzle"></i> Request raincheck
+                       </button>
+{#                       <input type="submit" value="Request raincheck" class="btn btn-outline-dark btn-sm">#}
+                   </form>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="justify-content-center">
+                    <a href="{% url 'events:all' %}" class="btn btn-outline-dark btn-sm">
+                        <i class="bi bi-arrow-return-left"></i> Back to my events
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-</form>
+
+{#    <p class="text-center"><a href="{% url 'events:all' %}" class="btn btn-outline-dark btn-sm">No, take me back to my events!</a></p>#}
+{##}
+{#<form action="" method="POST">#}
+{#  {% csrf_token %}#}
+{#    <div class="text-center mt-4">#}
+{#        <input type="submit" value="Yes, request raincheck" class="btn btn-outline-dark btn-sm">#}
+{#    </div>#}
+{#</form>#}
 
 {% endblock %}
