@@ -18,13 +18,16 @@ function updateRaincheckStatus() {
                     if (eventStatus !== updatedStatus) {
                         // console.log("They are different"); For testing purposes
                         event.querySelector("p.event-status-message").textContent = "HELLO! This event has just been rainchecked!";
-                        event.querySelector("span.invitation-status").textContent = "";
+                        event.querySelector("p.invitation-status").textContent = "";
                         event.dataset.eventStatus = INACTIVE;
+                        // alert("Hi! One of your events has just been rainchecked!");
+                        let alertModal = new bootstrap.Modal(document.getElementById("reg-modal"));
+                        alertModal.show();
                     }
                 })
                 .catch(function (err) {
                     console.log("Something went wrong.")
-                    //    what should I do here
+                    //    What else should I do here
                 });
         }
     });

@@ -1,9 +1,9 @@
 {% extends "home/base.html" %}
 
 {% block content %}
-    <div class="w-50 mt-5 mx-auto">
+    <div class="w-50 mt-5 mx-auto montserrat">
 
-        <p><i class="bi bi-journal-bookmark-fill"></i> Guilt-free plan postponement for introverts <i class="bi bi-heart"></i></p>
+        <p>Guilt-free plan postponement for introverts <i class="bi bi-heart"></i></p>
 
         {% if user.is_authenticated %}
             <p>You're logged in.</p>
@@ -19,5 +19,5 @@
                 New user? <a href="{% url 'users:register' %}" class="text-dark">Create an account here.</a>
             </p>
         {% endif %}
-</div>
+    </div>
 {% endblock %}

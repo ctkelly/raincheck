@@ -2,43 +2,29 @@
 
 {% block content %}
 
-    <h3 class="text-center serif mt-5">Delete event</h3>
+    <div class="container mt-5 pt-2 pb-5 bg-danger">
 
-    <p class="text-center montserrat fs-5 mt-4">Are you sure you want to delete the event: {{ event }}?</p>
+        <h3 class="text-center serif mt-5">Delete event</h3>
 
-{#    Make these buttons centered and on the same line -- why is text-center not working #}
-    <div class="container mt-5 text-center montserrat">
-        <div class="row justify-content-center">
-            <div class="col-3">
-                <div class="justify-content-center">
+        <p class="text-center montserrat fs-5 mt-4">Are you sure you want to delete the event: {{ event }}?</p>
+
+        <div class="container mt-5 text-center montserrat">
+            <div class="row justify-content-center">
+                <div class="col-3">
                     <form action="" method="POST">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-dark btn-sm">
+                        <button type="submit" class="btn btn-light btn-outline-dark btn-sm">
                             <i class="bi bi-trash"></i> Yes, delete
                         </button>
                     </form>
                 </div>
-            </div>
-            <div class="col-3">
-                <div class="justify-content-center">
-                    <a href="{% url 'events:all' %}" class="btn btn-outline-dark btn-sm">
+                <div class="col-3">
+                    <a href="{% url 'events:all' %}" class="btn btn-light btn-outline-dark btn-sm">
                         <i class="bi bi-arrow-return-left"></i> Back to events
                     </a>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-{#    <div class="text-center">#}
-{#    <a href="{% url 'events:all' %}" class="btn btn-outline-dark btn-sm mb-2"><i class="bi bi-arrow-return-left"></i> No, go back to events</a>#}
-{##}
-{#    <form action="" method="POST">#}
-{#    {% csrf_token %}#}
-{#        <button type="submit" class="btn btn-outline-dark btn-sm"><i class="bi bi-trash"></i> Yes, delete</button>#}
-{#    </form>#}
-{#</div>#}
-
 
 {% endblock %}
