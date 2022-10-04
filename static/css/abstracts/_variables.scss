@@ -1,0 +1,57 @@
+// Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque&family=IBM+Plex+Sans&family=IBM+Plex+Serif:wght@500&family=Montserrat&family=Zen+Kaku+Gothic+Antique&display=swap');
+
+// Do the original variables have behaviors attached to them, even if they are overridden?  This one, when
+// applied to navbar-brand, changes all fonts to serif for the whole page EXCEPT the navbar links, which are
+// styled with custom class
+//$font-family-sans-serif: "IBM Plex Serif", serif;
+
+// Custom colors
+
+// snow
+$primary: #fffaf6;
+
+// cultured
+$secondary: #fbf9f7;
+
+// ash gray
+$success: #b0c3ba;
+
+// melon
+$danger: #ffbbad;
+
+// white
+$light: #ffffff;
+
+// jet (black)
+$dark: #353535;
+
+.serif {
+  font-family: "IBM Plex Serif", serif;
+}
+
+.sans {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.zen {
+  font-family: "Zen Kaku Gothic Antique", sans-serif;
+}
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+
+.alt-sans {
+  font-family: "Darker Grotesque", sans-serif;
+}
+
+//.headings {
+//  @extend ..h3;
+//  font-family: "IBM Plex Serif", serif;
+//}
+
+.nav-link {
+  color: black;
+}
+
