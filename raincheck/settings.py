@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'users.apps.UsersConfig',
     'events.apps.EventsConfig',
+    'api.apps.ApiConfig',
     'django_extensions',
     'crispy_forms',
     'rest_framework',
