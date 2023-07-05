@@ -18,6 +18,9 @@
             <p>
                 New user? <a href="{% url 'users:register' %}" class="text-dark">Create an account here.</a>
             </p>
+            <p>
+                Forgot password? <a href="{% url 'password_reset' %}" class="text-dark">Reset your password here.</a>
+            </p>
         {% endif %}
     </div>
 {% endblock %}
