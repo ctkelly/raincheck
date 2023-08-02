@@ -9,5 +9,5 @@ If the other person also clicks their button for that event, then your plans are
 by email. However, if only one person clicks "Request raincheck" then your plans remain in place and the other person
 never finds out you wanted to cancel.
 
-Thanks to my BFF Kathy for this great idea. 
+Thanks to my BFF Kathy for this great idea.😊 
 
