@@ -1,4 +1,5 @@
 {% extends "home/base.html" %}
+{% load static %}
 
 {% block content %}
     <div class="w-50 mt-5 mx-auto montserrat">
@@ -23,4 +24,15 @@
             </p>
         {% endif %}
     </div>
+
+    <div class="w-50 mt-5 mx-auto montserrat font-monospace text-center fs-6">
+        <img src="{% static 'img/icons8-cat-64.png' %}" width="40" height="40"/>
+        <p class="fw-bold mt-3">
+            Fun cat fact! Did you know...
+        </p>
+        <p>
+            {{ fact }}
+        </p>
+    </div>
+
 {% endblock %}
